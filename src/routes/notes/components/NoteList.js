@@ -5,7 +5,7 @@ const NoteList = (props) => {
     <div className="note-list">
       <button onClick={props.onClickClear}>Clear List</button>
       <ul>
-        {props.notes ? props.notes.map((n) => <li>{n}</li>) : null}
+        {props.notes ? props.notes.map((n, i) => <li key={i}>{n}</li>) : null}
       </ul>
     </div>
   );

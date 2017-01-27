@@ -1,5 +1,13 @@
+import { connect } from 'react-redux'
+import { actions } from './modules/notes'
 import NoteForm from './components/NoteForm'
 
-// Not actually connecting this to a store
-export const NoteContainer = NoteForm;
-export default NoteContainer;
+const mapDispatchToProps = {
+  ...actions
+};
+
+const mapStateToProps = (state) => {
+  return { notes: state.notes };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NoteForm)

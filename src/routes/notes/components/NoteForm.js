@@ -10,13 +10,11 @@ class NoteForm extends React.Component {
     super(props);
 
     this.state = {
-      noteText: '',
-      noteList: []
+      noteText: ''
     };
 
     this.addNote = this.addNote.bind(this);
     this.noteTextChanged = this.noteTextChanged.bind(this);
-    this.clearList = this.clearList.bind(this);
   }
 
   noteTextChanged(text) {
@@ -25,15 +23,9 @@ class NoteForm extends React.Component {
 
   addNote() {
     if (this.state.noteText) {
-      this.setState({
-        noteList: this.state.noteList.concat([this.state.noteText]),
-        noteText: ''
-      });
+      this.props.addNote(this.state.noteText);
+      this.setState({ noteText: '' });
     }
-  }
-
-  clearList() {
-    this.setState({ noteList: [] });
   }
 
   render() {
@@ -45,19 +37,22 @@ class NoteForm extends React.Component {
           onAddClick={this.addNote}
           onNoteTextChange={this.noteTextChanged} />
         <h2>
-          { this.state.noteList.length > 0 ?
-            `You have added ${this.state.noteList.length} notes.` :
+          { this.props.notes.length > 0 ?
+            `You have added ${this.props.notes.length} notes.` :
             'No notes have been added yet.'}
         </h2>
         <NoteList
-          onClickClear={this.clearList}
-          notes={this.state.noteList} />
+          onClickClear={this.props.clearNotes}
+          notes={this.props.notes} />
       </div>
     );
   }
 }
 
-NoteForm.defaultProps = {
+NoteForm.propTypes = {
+  notes: React.PropTypes.array,
+  addNote: React.PropTypes.func.isRequired,
+  clearNotes: React.PropTypes.func.isRequired
 };
 
 export default NoteForm;
