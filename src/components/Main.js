@@ -24,10 +24,12 @@ class AppComponent extends React.Component {
   }
 
   addNote() {
-    this.setState({
-      noteList: this.state.noteList.concat([this.state.noteText]),
-      noteText: ''
-    });
+    if (this.state.noteText) {
+      this.setState({
+        noteList: this.state.noteList.concat([this.state.noteText]),
+        noteText: ''
+      });
+    }
   }
 
   clearList() {
